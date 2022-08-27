@@ -5,6 +5,8 @@ import traceback
 from io import BytesIO
 
 import imageio
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from django.core.files.storage import FileSystemStorage
 from django.http import JsonResponse
@@ -55,7 +57,6 @@ def ajax_server(request):
                     plt.colorbar()
                     figure = BytesIO()
                     plt.savefig(figure, format='jpg', dpi=300)
-
                     plt.close()
                     d['url'] = {'base64': 'data:image/png;base64,' + base64.b64encode(figure.getvalue()).decode()}
 
